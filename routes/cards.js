@@ -22,8 +22,7 @@ const router = express.Router();
     card = new Card(_.pick(req.body, ['title', 'description']));
     await card.save();
   
-    const token = card.generateAuthToken();
-    res.send(_.pick(card, ['_id', 'title', 'description']));
+    res.send(card);
   });
 
   
