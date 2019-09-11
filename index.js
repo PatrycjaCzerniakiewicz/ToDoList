@@ -1,8 +1,9 @@
 const config = require('config');
 const Joi = require('joi');
 const express = require('express');
-const users = require('./routes/users');
 const auth = require('./routes/auth');
+const users = require('./routes/users');
+const cards = require('./routes/cards');
 Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
 const app = express();
@@ -20,8 +21,9 @@ mongoose.connect('mongodb+srv://Wojtek:coderscamp_WGF@tdacluster-yvt8y.azure.mon
 
 
 app.use(express.json());
+app.use('/api/auth', auth);
 app.use('/api/users', users);
-app.use('/api/auth',auth);
+app.use('/api/cards', cards);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
