@@ -7,6 +7,11 @@ Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
 const app = express();
 
+if (!config.get('jwtPrivateKey')) {
+  console.error('FATAL ERROR: jwtPrivateKey is not defined.');
+  process.exit(1);
+}
+
 app.set('view-engine','ejs');
 
 mongoose.connect('mongodb+srv://Wojtek:coderscamp_WGF@tdacluster-yvt8y.azure.mongodb.net/test?retryWrites=true&w=majority')
