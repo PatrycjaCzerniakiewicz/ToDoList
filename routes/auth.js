@@ -1,18 +1,13 @@
-const jwt = require('jsonwebtoken');
 const auth = require('../middleware/auth');
-const config = require('config');
 const {User} = require('../models/user');
-const mongoose = require('mongoose');
 const express = require('express');
 const bcrypt = require('bcrypt');
 const Joi = require('joi');
-const _ = require('lodash');
 const router = express.Router();
 
 
 router.get('/me',auth, async (req, res) => {
-    const user = await User.findById(req.user._id).select('-password');
-    res.send(user);
+    res.send(req.user);
   });
 
   router.post('/', async (req, res) => {

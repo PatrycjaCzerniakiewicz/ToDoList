@@ -1,4 +1,6 @@
+
 {
-  "jwtPrivateKey": "",
-  "db":""
+"jwtPrivateKey":"",
+"db":"mongodb://localhost/todoapp"
+
 }
