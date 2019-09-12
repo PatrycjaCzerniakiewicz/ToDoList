@@ -9,6 +9,10 @@ Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
 const app = express();
 require('./startup/prod')(app);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useUnifiedTopology', true);
 
 if (!config.get('jwtPrivateKey')) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined.');
@@ -17,7 +21,7 @@ if (!config.get('jwtPrivateKey')) {
 
 app.set('view-engine','ejs');
 
-mongoose.connect(config.get('db'), {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(config.get('db'))
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.error('Could not connect to MongoDB...'));
 
