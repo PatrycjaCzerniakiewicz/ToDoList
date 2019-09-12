@@ -27,7 +27,7 @@ const router = express.Router();
     await user.save();
     
     token = user.generateAuthToken();
-    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'email']));
+    res.header('x-auth-token', token).send(_.pick(user, ['_id','name', 'email']));
   });
   
   module.exports = router;
