@@ -1,0 +1,11 @@
+.nav-item {
+    width: 50%;
+}
+
+.container {
+    max-width: 500px;
+}
+
+a.active {
+    font-weight: 700;
+}
