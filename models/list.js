@@ -25,5 +25,16 @@ function validateList(list) {
   return Joi.validate(list, schema);
 }
 
+function validateListUpdate(list) {
+
+  const schema = {
+    title: Joi.string().min(1).max(50),
+    cards: Joi.array().items(Joi.alternatives(Joi.objectId(), Joi.object()))
+  };
+
+  return Joi.validate(list, schema);
+}
+
 exports.List = List; 
 exports.validate = validateList;
+exports.validateUpdate = validateListUpdate;

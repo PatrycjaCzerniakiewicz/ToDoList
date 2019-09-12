@@ -1,6 +1,7 @@
 const auth = require('../middleware/auth');
 const {Card, validate} = require('../models/card');
 const express = require('express');
+const _ = require('lodash');
 const router = express.Router();
 
 
@@ -14,15 +15,15 @@ router.get('/:id', auth, async (req, res) => {
   res.send(card);
 });
 
-// router.post('/', auth,  async (req, res) => {
-//   const { error } = validate(req.body); 
-//   if (error) return res.status(400).send(error.details[0].message);
+router.post('/', auth,  async (req, res) => {
+  const { error } = validate(req.body); 
+  if (error) return res.status(400).send(error.details[0].message);
 
-//   card = new Card(_.pick(req.body, ['title', 'description']));
-//   await card.save();
+  let card = new Card(_.pick(req.body, ['title', 'description']));
+  card = await card.save();
 
-//   res.send(card);
-// });
+  res.send(card);
+});
 
 router.put('/:id', auth,  async (req, res) => {
   const { error } = validate(req.body); 

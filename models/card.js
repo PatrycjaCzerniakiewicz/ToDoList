@@ -25,5 +25,15 @@ function validateCard(card) {
   return Joi.validate(card, schema);
 }
 
+function validateCardUpdate(card) {
+  const schema = {
+    title: Joi.string().min(1).max(50),
+    description: Joi.string().max(16384)
+  };
+
+  return Joi.validate(card, schema);
+}
+
 exports.Card = Card; 
 exports.validate = validateCard;
+exports.validateUpdate = validateCardUpdate;

@@ -1,9 +1,10 @@
 const auth = require('../middleware/auth');
-const {List, validate} = require('../models/list');
-const {Card, validateCard = validate} = require('../models/card');
+const {List, validate, validateUpdate} = require('../models/list');
+const {Card, validateCard = validate, validateCardUpdate = validateUpdate} = require('../models/card');
 const express = require('express');
 const _ = require('lodash');
 const router = express.Router();
+const ObjectId = require('mongoose').Types.ObjectId;
 
 
 router.get('/', auth, async (req, res) => {
@@ -41,14 +42,24 @@ router.post('/:id', auth,  async (req, res) => {
 });
 
 router.put('/:id', auth,  async (req, res) => {
-  const { error } = validate(req.body); 
+  const { error } = validateUpdate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
-
-  const list = await List.findByIdAndUpdate(req.params.id, { title: req.body.title }, {
-    new: true
-  });
-
+  
+  const list = await List.findById(req.params.id);
   if (!list) return res.status(404).send('The list with the given ID was not found.');
+
+  if(req.body.title) list.title = req.body.title;
+
+  for (const x of req.body.cards) {
+    if(ObjectId.isValid(x)){
+      if(!list.cards.find(y => y == x) && (await Card.findById(x))) list.cards.push(x);
+    } else if(validateCardUpdate(x)) {
+      let card = await Card.findByIdAndUpdate(x._id, x, { new: true });
+      if(!list.cards.find(y => y == x._id) && card) list.cards.push(x._id);
+    }
+  }
+  
+  list.save();
   
   res.send(list);
 });
@@ -92,7 +103,7 @@ router.delete('/:id/:cardId', auth, async (req, res) => {
   if (!list) return res.status(404).send('The list with the given ID was not found.');
   if (!card) return res.status(404).send('The card with the given ID was not found.');
 
-  res.send(list, card);
+  res.send(card);
 });
   
 
