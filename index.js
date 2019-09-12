@@ -10,7 +10,8 @@ require('./startup/routes')(app);
 require('./startup/prod');(app)
 
 
-mongoose.connect('mongodb+srv://Wojtek:wiatrGoniFale@tdacluster-yvt8y.azure.mongodb.net/test?retryWrites=true&w=majority')
+const db = config.get("db")
+mongoose.connect(db)
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.error('Could not connect to MongoDB...'));
 
