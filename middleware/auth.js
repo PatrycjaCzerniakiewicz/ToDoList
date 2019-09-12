@@ -12,7 +12,7 @@ module.exports = function (req, res, next) {
       .then(user => {
         if (user) {
           req.user = user;
-          next();
+          return next();
         } else {
           throw user;
         }})
