@@ -10,12 +10,12 @@ require('./startup/routes')(app);
 require('./startup/prod');(app)
 
 
-mongoose.connect('mongodb://localhost/todoapp')
+mongoose.connect(config.get("db"))
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.error('Could not connect to MongoDB...'));
 
 
 
 const port = process.env.PORT || 3000;
- const server = app.listen(port, () => console.log(`Listening on port ${port}...`));
- module.exports = server;
+ const index = app.listen(port, () => console.log(`Listening on port ${port}...`));
+ module.exports = index;
