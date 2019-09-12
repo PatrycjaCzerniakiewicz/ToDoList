@@ -1,0 +1,50 @@
+body
+{
+    margin: 0;
+    min-height: 425px;
+}
+
+nav
+{
+    border-bottom: solid 1px lightgray;
+}
+
+h2 > input, h3 > input
+{
+    font-weight: 500;
+}
+
+nav input 
+{
+    color: white !important; 
+}
+
+.mainBoard
+{
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+
+.card
+{
+    width: 400px;
+    height: auto;
+    max-height: 50vh;
+}
+
+ul
+{
+    overflow-y: auto;
+}
+
+.card-title
+{
+    margin: 0;
+}
+
+.newBoard
+{
+    width:400px;
+    height: 4em;
+}
