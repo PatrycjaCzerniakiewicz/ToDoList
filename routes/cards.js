@@ -15,15 +15,15 @@ const router = express.Router();
     res.send(card);
   });
  
-  router.post('/', auth,  async (req, res) => {
-    const { error } = validate(req.body); 
-    if (error) return res.status(400).send(error.details[0].message);
+  // router.post('/', auth,  async (req, res) => {
+  //   const { error } = validate(req.body); 
+  //   if (error) return res.status(400).send(error.details[0].message);
   
-    card = new Card(_.pick(req.body, ['title', 'description']));
-    await card.save();
+  //   card = new Card(_.pick(req.body, ['title', 'description']));
+  //   await card.save();
   
-    res.send(card);
-  });
+  //   res.send(card);
+  // });
 
   
 router.put('/:id', auth,  async (req, res) => {

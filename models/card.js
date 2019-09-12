@@ -16,11 +16,6 @@ const cardSchema = new mongoose.Schema({
   }
 });
 
-cardSchema.methods.generateAuthToken = function() { 
-    const token = jwt.sign({ _id: this._id}, config.get('jwtPrivateKey'));
-    return token;
-};
-
 const Card = mongoose.model('Card', cardSchema);
 
 function validateCard(card) {
