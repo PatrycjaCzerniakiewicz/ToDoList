@@ -1,7 +1,6 @@
 const auth = require('../middleware/auth');
 const {Card, validate} = require('../models/card');
 const express = require('express');
-const _ = require('lodash');
 const router = express.Router();
 
 

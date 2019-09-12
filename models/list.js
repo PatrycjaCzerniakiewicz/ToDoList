@@ -1,8 +1,5 @@
-const config = require('config');
-const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const mongoose = require('mongoose');
-const cardSchema = require('mongoose').model('Card').schema
 
 const listSchema = new mongoose.Schema({
   title: {
