@@ -7,6 +7,7 @@ const cards = require('./routes/cards');
 Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
 const app = express();
+require('./startup/prod')(app);
 
 if (!config.get('jwtPrivateKey')) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined.');
@@ -14,6 +15,8 @@ if (!config.get('jwtPrivateKey')) {
 }
 
 app.set('view-engine','ejs');
+
+mongoose.connect(config.get('db'))
 
 mongoose.connect('mongodb+srv://Wojtek:coderscamp_WGF@tdacluster-yvt8y.azure.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true})
   .then(() => console.log('Connected to MongoDB...'))
