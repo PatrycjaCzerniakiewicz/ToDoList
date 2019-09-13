@@ -49,6 +49,33 @@ api/boards/:boardId
 DELETE*:
 api/boards/:boardId/:listId
 
-## Lists:
+## Auth:
 
-*) Needs valid jwt
+Umożliwia logowanie
+Otrzymanie name, email i _id użytkownika zalogowanego:
+* GET api/auth/me
+
+Loguje użytkownika:
+POST api/auth
+body: {
+"email": "email",
+"password": "password"
+}
+Zwraca jwt
+
+## Users:
+
+Umożliwia rejestrację nowego użytkownika
+Otrzymanie name, email i _id użytkownika zalogowanego:
+* GET api/users/me
+
+Rejestruje użytkownika:
+POST api/users
+body: {
+"email": "email",
+"name": "name",
+"password": "password"
+}
+Zwraca id, name, email
+
+*) Needs valid jwt in "x-auth-token" header
