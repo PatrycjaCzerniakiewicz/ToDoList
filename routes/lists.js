@@ -36,7 +36,7 @@ router.post('/:id', auth,  async (req, res) => {
 
   let card = new Card(_.pick(req.body, ['title', 'description']));
   card = await card.save();
-  list.cards.push({_id: card._id});
+  list.cards.push(card._id);
   list = await list.save();
   res.send(list);
 });
