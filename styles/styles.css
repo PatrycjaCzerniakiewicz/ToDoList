@@ -24,6 +24,7 @@ nav input
     display: flex;
     justify-content: start;
     flex-wrap: wrap;
+    align-items: flex-start;
 }
 
 .card
@@ -98,4 +99,9 @@ textarea
     resize: none;
     overflow: hidden;
     height: 38px;
+}
+
+ul.list-group 
+{
+    min-height: 0px;
 }
