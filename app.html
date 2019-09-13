@@ -20,33 +20,62 @@
     
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-between ">
-            <h2><input type="text" readonly class="form-control-plaintext" value="Board's name"></h2>
+            <h2><input type="text" onkeypress="changeName(event)" class="form-control-plaintext" value="Board's name"></h2>
             <button type="button" class="btn btn-primary btn-lg">Username</button>
         </nav>
     </header>
+
+    <script>
+        var defaultHeight = 0;
+        function autoGrow(element) 
+        {
+            defaultHeight = element.style.height;
+            element.style.height = "5px";
+            element.style.height = (element.scrollHeight) + "px";
+        }
+
+        function shrinkToDefault(element)
+        {
+            element.style.height = defaultHeight;
+        }
+
+        function changeTaskText(event)
+        {
+            if(event.keyCode == 13 && !event.shiftKey)
+            {
+                event.preventDefault();
+                //This is how you determine if a change to text inside specific task should be applied
+            }
+        }
+
+        function changeName(event)
+        {
+            if(event.keyCode == 13 && !event.shiftKey)
+            {
+                event.preventDefault();
+                //This is how you determine if a change to text inside input should be applied
+            }
+        }
+    </script>
 
     <main>
         <div class="container-fluid mainBoard">
             <div class="card list-group-flush m-3" id="todo">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3 class="card-title"><input type="text" readonly class="form-control-plaintext" value="TO DO"></h3>
+                    <h3 class="card-title"><input type="text" onkeypress="changeName(event)" class="form-control-plaintext" value="TO DO"></h3>
                     <button type="button" class="btn btn-danger deleteBlock">X</button>
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <input type="text" readonly class="form-control-plaintext" value="Przykładowe zadanie na liście">
+                        <textarea onkeypress="changeTaskText(event)"  onmouseenter="autoGrow(this)" onmouseleave="shrinkToDefault(this)"  class="form-control-plaintext">Przykładowe zadanie na liście</textarea onkeypress="changeTaskText(event)" >
                         <button type="button" class="btn btn-outline-danger btn-sm ml-2 deleteItem">X</button>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <input type="text" readonly class="form-control-plaintext" value="Przykładowe zadanie na liście">
+                        <textarea onkeypress="changeTaskText(event)"  onmouseenter="autoGrow(this)" onmouseleave="shrinkToDefault(this)"  class="form-control-plaintext">Przykładowe zadanie na liście Przykładowe zadanie na liście Przykładowe zadanie na liście Przykładowe zadanie na liście Przykładowe zadanie na liście Przykładowe zadanie na liście Przykładowe zadanie na liście Przykładowe zadanie na liście Przykładowe zadanie na liście Przykładowe zadanie na liście Przykładowe zadanie na liście Przykładowe zadanie na liście</textarea onkeypress="changeTaskText(event)" >
                         <button type="button" class="btn btn-outline-danger btn-sm ml-2 deleteItem">X</button>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <input type="text" readonly class="form-control-plaintext" value="Przykładowe zadanie na liście">
-                        <button type="button" class="btn btn-outline-danger btn-sm ml-2 deleteItem">X</button>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <input type="text" readonly class="form-control-plaintext" value="Przykładowe zadanie na liście">
+                        <textarea onkeypress="changeTaskText(event)"  onmouseenter="autoGrow(this)" onmouseleave="shrinkToDefault(this)"  class="form-control-plaintext">Przykładowe zadanie na liście</textarea onkeypress="changeTaskText(event)" >
                         <button type="button" class="btn btn-outline-danger btn-sm ml-2 deleteItem">X</button>
                     </li>
                     <button type="button" class="list-group-item list-group-item-success list-group-item-action addTask">+ Add task</button>
@@ -55,24 +84,24 @@
 
             <div class="card list-group-flush m-3" id="progress">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3 class="card-title"><input type="text" readonly class="form-control-plaintext" value="IN PROGRESS"></h3>
+                    <h3 class="card-title"><input type="text" onkeypress="changeName(event)" class="form-control-plaintext" value="IN PROGRESS"></h3>
                     <button type="button" class="btn btn-danger deleteBlock">X</button>
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <input type="text" readonly class="form-control-plaintext" value="Przykładowe zadanie na liście">
+                        <textarea onkeypress="changeTaskText(event)"  onmouseenter="autoGrow(this)" onmouseleave="shrinkToDefault(this)"  class="form-control-plaintext">Przykładowe zadanie na liście</textarea onkeypress="changeTaskText(event)" >
                         <button type="button" class="btn btn-outline-danger btn-sm ml-2 deleteItem">X</button>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <input type="text" readonly class="form-control-plaintext" value="Przykładowe zadanie na liście">
+                        <textarea onkeypress="changeTaskText(event)"  onmouseenter="autoGrow(this)" onmouseleave="shrinkToDefault(this)"  class="form-control-plaintext">Przykładowe zadanie na liście</textarea onkeypress="changeTaskText(event)" >
                         <button type="button" class="btn btn-outline-danger btn-sm ml-2 deleteItem">X</button>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <input type="text" readonly class="form-control-plaintext" value="Przykładowe zadanie na liście">
+                        <textarea onkeypress="changeTaskText(event)"  onmouseenter="autoGrow(this)" onmouseleave="shrinkToDefault(this)"  class="form-control-plaintext">Przykładowe zadanie na liście</textarea onkeypress="changeTaskText(event)" >
                         <button type="button" class="btn btn-outline-danger btn-sm ml-2 deleteItem">X</button>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <input type="text" class="form-control" value="Przykładowe zadanie na liście">
+                        <textarea onkeypress="changeTaskText(event)"  onmouseenter="autoGrow(this)" onmouseleave="shrinkToDefault(this)"  class="form-control-plaintext">Przykładowe zadanie na liście</textarea onkeypress="changeTaskText(event)" >
                         <button type="button" class="btn btn-outline-danger btn-sm ml-2 deleteItem">X</button>
                     </li>
                     <button type="button" class="list-group-item list-group-item-success list-group-item-action addTask">+ Add task</button>
@@ -81,7 +110,7 @@
 
             <div class="card list-group-flush m-3" id="done">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3 class="card-title"><input type="text" readonly class="form-control-plaintext" value="DONE"></h3>
+                    <h3 class="card-title"><input type="text" onkeypress="changeName(event)" class="form-control-plaintext" value="DONE"></h3>
                     <button type="button" class="btn btn-danger deleteBlock">X</button>
                 </div>
                 <ul class="list-group">
