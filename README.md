@@ -49,14 +49,96 @@ api/boards/:boardId
 DELETE*:
 api/boards/:boardId/:listId
 
+
+## Lists:
+
+// Gets all lists with cards
+GET*: 
+api/lists
+
+// Gets list with specified id with cards
+GET*: 
+api/lists/:listId
+
+// Creates new list with specified params
+POST*:
+api/lists
+body: {
+    title: (Required list title 1-50 chars),
+    cards: (list of valid card id)
+}
+
+// Creates new card in specified list
+POST*:
+api/lists/:listId
+body: {
+    title: (Required card title 1-50 chars),
+    description: (card description 0-16384 chars),
+}
+
+// Edits list with given Id - edits only given elements
+// Creates lists based on objects given in lists array
+// Changes existing card id to be inside target list
+PUT*:
+api/lists/:listId
+body: {
+    title: (Required list title 1-50 chars),
+    cards: [{}, {}] / [ObjectId, ObjectId] // {} - valid card body or card id, can be mixed
+}
+
+// Transfers given card to given list
+PUT*:
+api/lists/:listId/:cardId
+
+// Deletes given list with all cards it contains
+DELETE*:
+api/lists/:listId
+
+// Deletes given card in given list
+DELETE*:
+api/lists/:listId/:cardId
+
+## Cards:
+
+// Gets all cards
+GET*: 
+api/cards
+
+// Gets card with specified id
+GET*: 
+api/cards/:cardId
+
+// Creates new card with specified params
+POST*:
+api/cards
+body: {
+    title: (Required card title 1-50 chars),
+    description: (card description 0-16384 chars)
+}
+
+// Edits card with given Id - edits only given elements
+PUT*:
+api/cards/:cardId
+body: {
+    title: (Required card title 1-50 chars),
+    description: (card description 0-16384 chars)
+}
+
+// Deletes given card
+DELETE*:
+api/cards/:cardId
+
+
 ## Auth:
 
-Umożliwia logowanie
-Otrzymanie name, email i _id użytkownika zalogowanego:
-* GET api/auth/me
+// Umożliwia logowanie
+// Otrzymanie name, email i _id użytkownika zalogowanego:
+GET*:
+api/auth/me
 
-Loguje użytkownika:
-POST api/auth
+// Loguje użytkownika:
+POST:
+api/auth
 body: {
 "email": "email",
 "password": "password"
@@ -65,12 +147,14 @@ Zwraca jwt
 
 ## Users:
 
-Umożliwia rejestrację nowego użytkownika
-Otrzymanie name, email i _id użytkownika zalogowanego:
-* GET api/users/me
+// Umożliwia rejestrację nowego użytkownika
+// Otrzymanie name, email i _id użytkownika zalogowanego:
+GET*:
+api/users/me
 
-Rejestruje użytkownika:
-POST api/users
+// Rejestruje użytkownika:
+POST:
+api/users
 body: {
 "email": "email",
 "name": "name",
