@@ -55,6 +55,8 @@ router.put('/:id', auth,  async (req, res) => {
   if (!board) return res.status(404).send('The board with the given ID was not found.');
 
   if(req.body.title) board.title = req.body.title;
+  if(req.body.description) board.description = req.body.description;
+  if(req.body.admin) board.admin = req.body.admin;
 
   for (const x of req.body.lists) {
     const {error} = validateList(x);
