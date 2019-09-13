@@ -1,5 +1,6 @@
 const auth = require('../middleware/auth');
 const {Card, validate} = require('../models/card');
+const {List} = require('../models/list');
 const express = require('express');
 const _ = require('lodash');
 const router = express.Router();
@@ -40,11 +41,7 @@ router.put('/:id', auth,  async (req, res) => {
 
 // Removes card from it's parent list and deletes card
 router.delete('/:id', auth, async (req, res) => {
-  let list = await List.findOne({cards: req.params.id});
-  if(list){
-    list.cards = list.cards.filter(x => x != req.params.id);
-    await list.save();
-  }
+  await Card.removeFromParentList(req.params.id);
   const card = await Card.findByIdAndRemove(req.params.id);
 
   if (!card) return res.status(404).send('The card with the given ID was not found.');

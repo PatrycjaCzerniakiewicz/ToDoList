@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
+const {List} = require('../models/list');
 
 const cardSchema = new mongoose.Schema({
   title: {
@@ -15,6 +16,16 @@ const cardSchema = new mongoose.Schema({
 });
 
 const Card = mongoose.model('Card', cardSchema);
+
+Card.removeFromParentList = async function(id) {
+  let listOld = await List.find({cards: id});
+    if(listOld){
+      for (const l of listOld) {
+        l.cards = l.cards.filter(x => x != id);
+        await l.save();
+      }
+    }
+}
 
 function validateCard(card) {
   const schema = {

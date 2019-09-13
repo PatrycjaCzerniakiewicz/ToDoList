@@ -36,7 +36,7 @@ router.post('/:id', auth,  async (req, res) => {
 
   let card = new Card(_.pick(req.body, ['title', 'description']));
   card = await card.save();
-  list.cards.push({_id: card._id});
+  list.cards.push(card._id);
   list = await list.save();
   res.send(list);
 });
@@ -51,15 +51,31 @@ router.put('/:id', auth,  async (req, res) => {
   if(req.body.title) list.title = req.body.title;
 
   for (const x of req.body.cards) {
+    const {error} = validateCard(x);
+    const {errorUpdate} = validateCardUpdate(x);
+    // Valid ID was given
     if(ObjectId.isValid(x)){
-      if(!list.cards.find(y => y == x) && (await Card.findById(x))) list.cards.push(x);
-    } else if(validateCardUpdate(x)) {
+      if(!list.cards.find(y => y == x) && (await Card.findById(x))) {
+        await Card.removeFromParentList(x);
+        list.cards.push(x)
+      };
+    // Valid card object with valid ID was given
+    } else if(ObjectId.isValid(x._id) && !errorUpdate) {
       let card = await Card.findByIdAndUpdate(x._id, x, { new: true });
       if(!list.cards.find(y => y == x._id) && card) list.cards.push(x._id);
+    // Valid card object without valid ID was given (creates new card)
+    } else if(!error) {
+      let card = new Card(x);
+      card = await card.save();
+      list.cards.push(card._id);
+    // Nothing valid was given
+    } else {
+      await list.save();
+      return res.status(400).send(error.details[0].message)
     }
   }
   
-  list.save();
+  await list.save();
   
   res.send(list);
 });
