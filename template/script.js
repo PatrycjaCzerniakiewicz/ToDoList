@@ -14,5 +14,6 @@ function loginWithFacebook() {
       }).then(res => {
           console.log(res);
       })
-  })
+  },{scope: 'public_profile,email'})
+  return false
 }
