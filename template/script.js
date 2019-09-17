@@ -1,4 +1,3 @@
-import { fromByteArray } from "ipaddr.js";
 
 document.getElementById('loginbtn').addEventListener('click',loginWithFacebook,false);
 
