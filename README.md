@@ -113,7 +113,8 @@ POST*:
 api/cards
 body: {
     title: (Required card title 1-50 chars),
-    description: (card description 0-16384 chars)
+    description: (card description 0-16384 chars),
+    tags: [String unique tag 1-50 chars], - (list of strings)
 }
 
 // Edits card with given Id - edits only given elements
@@ -121,7 +122,8 @@ PUT*:
 api/cards/:cardId
 body: {
     title: (Required card title 1-50 chars),
-    description: (card description 0-16384 chars)
+    description: (card description 0-16384 chars),
+    tags: [String unique tag 1-50 chars], - (list of strings)
 }
 
 // Deletes given card
