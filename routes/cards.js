@@ -20,19 +20,21 @@ router.post('/', auth,  async (req, res) => {
   const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
 
-  let card = new Card(_.pick(req.body, ['title', 'description']));
+  let card = new Card(Card.getElementsFromBody(req.body));
   card = await card.save();
 
   res.send(card);
 });
 
+
+
 router.put('/:id', auth,  async (req, res) => {
   const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
 
-  const card = await Card.findByIdAndUpdate(req.params.id, { title: req.body.title, description: req.body.description }, {
-    new: true
-  });
+  const card = await Card.findByIdAndUpdate(req.params.id,
+    Card.getElementsFromBody(req.body), 
+     {new: true});
 
   if (!card) return res.status(404).send('The card with the given ID was not found.');
   

@@ -12,7 +12,13 @@ const cardSchema = new mongoose.Schema({
   description: {
     type: String,
     maxlength: 16384,
-  }
+  },
+  tags: [{
+    type: String,
+    unique: true,
+    minlength: 1,
+    maxlength: 50
+  }]
 });
 
 const Card = mongoose.model('Card', cardSchema);
@@ -27,10 +33,13 @@ Card.removeFromParentList = async function(id) {
     }
 }
 
+Card.getElementsFromBody = (body) => _.pick(body, ['title', 'description', 'tags']);
+
 function validateCard(card) {
   const schema = {
     title: Joi.string().min(1).max(50).required(),
-    description: Joi.string().max(16384)
+    description: Joi.string().max(16384),
+    tags: Joi.array().items(Joi.string().min(1).max(50))
   };
 
   return Joi.validate(card, schema);
@@ -39,7 +48,8 @@ function validateCard(card) {
 function validateCardUpdate(card) {
   const schema = {
     title: Joi.string().min(1).max(50),
-    description: Joi.string().max(16384)
+    description: Joi.string().max(16384),
+    tags: Joi.array().items(Joi.string().min(1).max(50))
   };
 
   return Joi.validate(card, schema);

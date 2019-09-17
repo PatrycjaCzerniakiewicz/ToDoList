@@ -34,7 +34,7 @@ router.post('/:id', auth,  async (req, res) => {
   let list = await List.findById(req.params.id);
   if(!list) return res.status(404).send("List not found");
 
-  let card = new Card(_.pick(req.body, ['title', 'description']));
+  let card = new Card(Card.getElementsFromBody(req.body));
   card = await card.save();
   list.cards.push(card._id);
   list = await list.save();
