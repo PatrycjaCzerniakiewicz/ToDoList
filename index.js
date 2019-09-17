@@ -26,16 +26,16 @@ app.use(bodyParser.json());
 app.post('/login-with-facebook',async (req,res) => {
   const {accessToken,userID} = req.body
 
-  const response = await fetch("");
-  const json = await response.json();
+//  const response = await fetch("");
+ // const json = await response.json();
 
-  if(json.userID === userID){
+ // if(json.userID === userID){
 
-  }else {
+ // }else {
 
-  };
+ // };
 
-})
+});
 
 if (!config.get('jwtPrivateKey')) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined.');
