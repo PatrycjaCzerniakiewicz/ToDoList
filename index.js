@@ -9,6 +9,7 @@ const cards = require('./routes/cards');
 Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
 const app = express();
+const path = require('path');
 require('./startup/prod')(app);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useNewUrlParser', true);
