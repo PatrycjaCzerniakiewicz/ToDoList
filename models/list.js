@@ -27,6 +27,8 @@ listSchema.methods.removeWithContent = async function() {
 
 const List = mongoose.model('List', listSchema);
 
+List.getElementsFromBody = (body) => _.pick(body, ['title', 'cards']);
+
 List.findByIdAndRemoveWithContent = async function(id) {
   const list = await List.findById(id);
   if(!list) return [];
