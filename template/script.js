@@ -1,3 +1,4 @@
+document.getElementById('loginbtn').addEventListener('click',loginWithFacebook,false)
 
 let loginWithFacebook = _ => _;
 
