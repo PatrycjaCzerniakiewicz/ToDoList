@@ -10,6 +10,7 @@ const cards = require('./routes/cards');
 const fetch = require('node-fetch')
 const path = require('path');
 const FBuser = require('./model');
+const bodyParser = require('body-parser');
 //
 Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
@@ -20,6 +21,7 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useUnifiedTopology', true);
 app.use('/',express.static(path.join(__dirname,'template')));
+app.use(bodyParser.json());
 
 app.post('/login-with-facebook',async (req,res) => {
   const {accessToken,userID} = req.body
@@ -30,7 +32,7 @@ app.post('/login-with-facebook',async (req,res) => {
   if(json.userID === userID){
 
   }else {
-    
+
   };
 
 })
