@@ -1,11 +1,14 @@
-import { fromByteArray } from "ipaddr.js";
 
-document.getElementById('loginbtn').addEventListener('click',loginWithFacebook,false)
+let loginWithFacebook = _ => _;
 
-function loginWithFacebook(e) {
-    e.preventDefault();
-    FB.login(response => {
-        console.log(response)
-    }, {scope: 'public_profile,email'})
-    return false;
-};
+function fbSDKLoaded() {
+    FB.getLoginStatus(response => {
+        if(response.status == "not_authorized") {
+            loginWithFacebook = _ => {
+                FB.login(response => {
+                    console.log(response);
+                })
+            }
+        }
+    })
+}
