@@ -1,0 +1,11 @@
+const mongoose = require('mongoose');
+
+const Schema = mongoose.Schema({
+    name: String,
+    facebookID: String,
+    accessToken: String
+},{collection:"FB_users"}
+);
+
+const model = mongoose.model('users',Schema);
+module.exports = model;

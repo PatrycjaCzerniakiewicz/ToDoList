@@ -6,16 +6,34 @@ const users = require('./routes/users');
 const boards = require('./routes/boards');
 const lists = require('./routes/lists');
 const cards = require('./routes/cards');
+// NEED TO FB LOGIN
+const fetch = require('node-fetch')
+const path = require('path');
+const FBuser = require('./model');
+//
 Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
 const app = express();
-const path = require('path');
 require('./startup/prod')(app);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useUnifiedTopology', true);
 app.use('/',express.static(path.join(__dirname,'template')));
+
+app.post('/login-with-facebook',async (req,res) => {
+  const {accessToken,userID} = req.body
+
+  const response = await fetch("");
+  const json = await response.json();
+
+  if(json.userID === userID){
+
+  }else {
+    
+  };
+
+})
 
 if (!config.get('jwtPrivateKey')) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined.');
