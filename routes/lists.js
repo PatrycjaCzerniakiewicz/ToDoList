@@ -97,11 +97,8 @@ router.put('/:id/:cardId', auth,  async (req, res) => {
 
 // Removes list with all cards inside
 router.delete('/:id', auth, async (req, res) => {
-  let list = await List.findById(req.params.id);
-  for(x of list.cards) {
-    await Card.findByIdAndRemove(x);
-  }
-  list = await list.remove();
+  let list = await List.findByIdAndRemoveWithContent(req.params.id);
+  //list = await list.removeWithContent();
 
   if (!list) return res.status(404).send('The list with the given ID was not found.');
 

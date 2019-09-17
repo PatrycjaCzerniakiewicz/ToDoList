@@ -84,11 +84,7 @@ router.put('/:id', auth,  async (req, res) => {
 
 // Removes board with all lists inside
 router.delete('/:id', auth, async (req, res) => {
-  let board = await Board.findById(req.params.id);
-  for(x of board.lists) {
-    await List.findByIdAndRemove(x);
-  }
-  board = await board.remove();
+  let board = await Board.findByIdAndremoveWithContent(req.params.id);
 
   if (!board) return res.status(404).send('The board with the given ID was not found.');
 
@@ -98,12 +94,12 @@ router.delete('/:id', auth, async (req, res) => {
 // Deletes specified list inside specified board
 router.delete('/:id/:listId', auth, async (req, res) => {
   let board = await Board.findById(req.params.id);
+  if (!board) return res.status(404).send('The board with the given ID was not found.');
 
   board.lists = board.lists.filter(x => x != req.params.listId);
   board = board.save();
-  let list = await List.findByIdAndRemove(req.params.listId);
+  let list = await List.findByIdAndremoveWithContent(req.params.listId);
 
-  if (!board) return res.status(404).send('The board with the given ID was not found.');
   if (!list) return res.status(404).send('The list with the given ID was not found.');
 
   res.send(list);

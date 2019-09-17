@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
+const {Card} = require('../models/card');
 
 const listSchema = new mongoose.Schema({
   title: {
@@ -14,7 +15,23 @@ const listSchema = new mongoose.Schema({
   }]
 });
 
+listSchema.methods.removeWithContent = async function() {
+  console.log(this);
+  if(this.cards)
+    for(x of this.cards) {
+      console.log(x);
+      await Card.findByIdAndRemove(x);
+    }
+  return await this.remove();
+}
+
 const List = mongoose.model('List', listSchema);
+
+List.findByIdAndRemoveWithContent = async function(id) {
+  const list = await List.findById(id);
+  if(!list) return [];
+  return await list.removeWithContent();
+}
 
 function validateList(list) {
   const schema = {

@@ -1,6 +1,6 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
-const {userSchema} = require('./user');
+const {List} = require('./list');
 
 const boardSchema = new mongoose.Schema({
   name: {
@@ -31,7 +31,20 @@ const boardSchema = new mongoose.Schema({
   }]
 });
 
+boardSchema.methods.removeWithContent = async function() {
+  for(x of this.lists) {
+    await List.findByIdAndRemoveWithContent(x);
+  }
+  return await this.remove();
+}
+
 const Board = mongoose.model('Board', boardSchema);
+
+Board.findByIdAndremoveWithContent = async function(id) {
+  const board = await Board.findById(id);
+  if(!board) return [];
+  return await board.removeWithContent();
+}
 
 function validateBoard(board) {
   const schema = {
