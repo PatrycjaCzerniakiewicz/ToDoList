@@ -23,7 +23,7 @@ mongoose.set('useUnifiedTopology', true);
 app.use('/',express.static(path.join(__dirname,'template')));
 app.use(bodyParser.json());
 
-app.post('/login-with-facebook',async (req,res) => {
+app.post('/login-with-facebook', (req,res) => {
   const {accessToken,userID} = req.body
 
 //  const response = await fetch("");
