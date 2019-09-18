@@ -59,11 +59,12 @@ app.post('/login-with-facebook',async (req,res) => {
       res.json({status:'ok',data: 'You are logged in'});
       }else {
         const newUser = new FBuser({
-          name:'something',
+          name: json.name,
           facebookID: userID,
           accessToken
         })
-        
+      
+      
       await newUser.save();
       res.json({status:"ok"});
       }
