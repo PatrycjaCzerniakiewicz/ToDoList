@@ -50,9 +50,11 @@ app.post('/login-with-facebook',async (req,res) => {
 
   const response = await fetch(`https://graph.facebook.com/v4.0/me?access_token=${accessToken}&method=get&pretty=0&sdk=joey&suppress_http_code=1`);
   const json = response.json();
+  console.log('json',json)
 
   if (json.id === userID) {
-    
+
+      console.log('json.id === userID is true')
       const result = await FBuser.findOne({facebookID: userID});
 
       if(result){
