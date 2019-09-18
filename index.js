@@ -23,6 +23,28 @@ mongoose.set('useUnifiedTopology', true);
 app.use('/',express.static(path.join(__dirname,'template')));
 app.use(bodyParser.json());
 
+
+
+if (!config.get('jwtPrivateKey')) {
+  console.error('FATAL ERROR: jwtPrivateKey is not defined.');
+  process.exit(1);
+}
+
+app.set('view-engine','ejs');
+
+mongoose.connect(config.get('db'))
+  .then(() => console.log('Connected to MongoDB...'))
+  .catch(err => console.error('Could not connect to MongoDB...'));
+
+ 
+
+app.use(express.json());
+app.use('/api/auth', auth);
+app.use('/api/users', users);
+app.use('/api/cards', cards);
+app.use('/api/lists', lists);
+app.use('/api/boards', boards);
+
 app.post('/login-with-facebook',async (req,res) => {
   const {accessToken,userID} = req.body
 
@@ -50,27 +72,6 @@ app.post('/login-with-facebook',async (req,res) => {
   }
 
 });
-
-if (!config.get('jwtPrivateKey')) {
-  console.error('FATAL ERROR: jwtPrivateKey is not defined.');
-  process.exit(1);
-}
-
-app.set('view-engine','ejs');
-
-mongoose.connect(config.get('db'))
-  .then(() => console.log('Connected to MongoDB...'))
-  .catch(err => console.error('Could not connect to MongoDB...'));
-
-  
-
-app.use(express.json());
-app.use('/api/auth', auth);
-app.use('/api/users', users);
-app.use('/api/cards', cards);
-app.use('/api/lists', lists);
-app.use('/api/boards', boards);
-
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
