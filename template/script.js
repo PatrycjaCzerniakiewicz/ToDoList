@@ -5,7 +5,7 @@ function loginWithFacebook() {
   FB.login( response => {
       const {authResponse:{accessToken,userID}} = response
       
-      fetch('/login-with-facebook', {
+      fetch('api/fb_users/login-with-facebook', {
           method:"POST",
           headers: {
               'Content-Type':'application/json'
@@ -16,7 +16,7 @@ function loginWithFacebook() {
       })
 
       FB.api('/me', function(response) {
-          console.log(JSON.stringify(response));
+          console.log(JSON.stringify(response));    
       })
   },{scope: 'public_profile,email'})
   return false
