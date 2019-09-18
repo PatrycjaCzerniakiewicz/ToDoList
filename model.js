@@ -7,5 +7,5 @@ const Schema = mongoose.Schema({
 },{collection:"FB_users"}
 );
 
-const model = mongoose.model('users',Schema);
+const model = mongoose.model('FB_users',Schema);
 module.exports = model;
