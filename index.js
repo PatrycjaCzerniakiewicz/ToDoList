@@ -6,7 +6,6 @@ const users = require('./routes/users');
 const boards = require('./routes/boards');
 const lists = require('./routes/lists');
 const cards = require('./routes/cards');
-const fb_users = require('./routes/FB_users');
 // NEED TO FB LOGIN
 const fetch = require('node-fetch')
 const path = require('path');
@@ -45,8 +44,36 @@ app.use('/api/users', users);
 app.use('/api/cards', cards);
 app.use('/api/lists', lists);
 app.use('/api/boards', boards);
-app.use('/api/fb_users',fb_users);
 
+app.post('/login-with-facebook',async (req,res) => {
+  const {accessToken,userID} = req.body
+
+  const response = await fetch(`https://graph.facebook.com/v4.0/me?access_token=${accessToken}&method=get&pretty=0&sdk=joey&suppress_http_code=1`);
+  const json = await response.json();
+  console.log('json.id',json.id);
+  if (json.id === userID) {
+
+      const result = await FBuser.findOne({facebookID: userID});
+
+      if(result){
+      res.json({status:'ok',data: 'You are logged in'});
+      }else {
+        const newUser = new FBuser({
+          name:json.name,
+          facebookID: userID,
+          accessToken
+        })
+      
+      
+      await newUser.save();
+      res.json({status:"ok"});
+      }
+
+  }else {
+    res.json({status:'error'});
+  }
+
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
