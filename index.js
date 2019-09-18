@@ -21,7 +21,6 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useUnifiedTopology', true);
 app.use('/',express.static(path.join(__dirname,'template')));
-app.use(bodyParser.json());
 
 
 
