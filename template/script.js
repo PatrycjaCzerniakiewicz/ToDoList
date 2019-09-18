@@ -5,7 +5,7 @@ function loginWithFacebook() {
   FB.login( response => {
       const {authResponse:{accessToken,userID}} = response
       
-      fetch('api/fb_users/login-with-facebook', {
+      fetch('/login-with-facebook', {
           method:"POST",
           headers: {
               'Content-Type':'application/json'
