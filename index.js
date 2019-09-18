@@ -11,6 +11,7 @@ const fetch = require('node-fetch')
 const path = require('path');
 const FBuser = require('./model');
 const bodyParser = require('body-parser');
+const fetch = require('node-fetch');
 //
 Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
@@ -23,19 +24,7 @@ mongoose.set('useUnifiedTopology', true);
 app.use('/',express.static(path.join(__dirname,'template')));
 app.use(bodyParser.json());
 
-app.post('/login-with-facebook', (req,res) => {
-  const {accessToken,userID} = req.body
 
-//  const response = await fetch("");
- // const json = await response.json();
-
- // if(json.userID === userID){
-
- // }else {
-
- // };
-
-});
 
 if (!config.get('jwtPrivateKey')) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined.');
@@ -47,6 +36,34 @@ app.set('view-engine','ejs');
 mongoose.connect(config.get('db'))
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.error('Could not connect to MongoDB...'));
+
+  app.post('/login-with-facebook',async (req,res) => {
+    const {accessToken,userID} = req.body
+  
+    const response = await fetch(`https://graph.facebook.com/v4.0/me?access_token=${accessToken}&method=get&pretty=0&sdk=joey&suppress_http_code=1`);
+    const json = response.json();
+  
+    if (json.id === userID) {
+      
+        const result = await FBuser.findOne({facebookID: userID});
+
+        if(result){
+        res.json({status:'ok',data: 'You are logged in'});
+        }else {
+          const newUser = new FBuser({
+            name:'something',
+            facebookID: userID,
+            accessToken
+          })
+        }
+
+        await newUser.save();
+        res.json({status:"ok"});
+    }else {
+      res.json({status:'error'});
+    }
+  
+  });
 
 app.use(express.json());
 app.use('/api/auth', auth);
