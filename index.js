@@ -11,7 +11,6 @@ const fetch = require('node-fetch')
 const path = require('path');
 const FBuser = require('./model');
 const bodyParser = require('body-parser');
-const fetch = require('node-fetch');
 //
 Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
