@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema({
     name: String,
     facebookID: String,
+    email: String,
     accessToken: String
 },{collection:"FB_users"}
 );
