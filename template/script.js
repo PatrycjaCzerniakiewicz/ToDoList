@@ -16,7 +16,7 @@ function loginWithFacebook() {
       })
 
       FB.api('/me', function(response) {
-          console.log(JSON.stringify(response));    
+          console.log(JSON.stringify(response.email));    
       })
   },{
     scope: 'email', 
