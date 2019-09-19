@@ -46,9 +46,9 @@ app.use('/api/lists', lists);
 app.use('/api/boards', boards);
 
 app.post('/login-with-facebook',async (req,res) => {
-  const {accessToken,userID,email} = req.body
+  const {accessToken,userID} = req.body
 
-  const response = await fetch(`https://graph.facebook.com/v4.0/me?access_token=${accessToken}&method=get&pretty=0&sdk=joey&suppress_http_code=1`);
+  const response = await fetch(`https://graph.facebook.com/v4.0/me?access_token=${accessToken}&fields=id%2Cname%2Cemail%2Cfirst_name%2Clast_name&method=get&pretty=0&sdk=joey&suppress_http_code=1`);
   const json = await response.json();
   console.log('JSON OBJECT :', json);
   if (json.id === userID) {
