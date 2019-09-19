@@ -3,14 +3,14 @@ document.getElementById('loginbtn').addEventListener('click',loginWithFacebook,f
 
 function loginWithFacebook() {
   FB.login( response => {
-      const {authResponse:{accessToken,userID}} = response
+      const {authResponse:{accessToken,userID,email}} = response
       
       fetch('/login-with-facebook', {
           method:"POST",
           headers: {
               'Content-Type':'application/json'
           },
-          body: JSON.stringify({accessToken,userID})
+          body: JSON.stringify({accessToken,userID,email})
       }).then(res => {
           console.log(res);
       })
@@ -18,7 +18,7 @@ function loginWithFacebook() {
       FB.api('/me', function(response) {
           console.log(JSON.stringify(response));    
       })
-  }, {
+  },{
     scope: 'email', 
     return_scopes: true
 })
