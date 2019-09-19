@@ -18,6 +18,9 @@ function loginWithFacebook() {
       FB.api('/me', function(response) {
           console.log(JSON.stringify(response));    
       })
-  },{scope: 'public_profile,email'})
+  }, {
+    scope: 'email', 
+    return_scopes: true
+})
   return false
 }
