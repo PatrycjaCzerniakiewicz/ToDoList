@@ -61,7 +61,7 @@ app.post('/login-with-facebook',async (req,res) => {
         const newUser = new FBuser({
           name:json.name,
           facebookID: userID,
-          email,
+          email: json.email,
           accessToken
         })
       
