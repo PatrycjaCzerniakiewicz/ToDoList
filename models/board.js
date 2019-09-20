@@ -12,7 +12,6 @@ const boardSchema = new mongoose.Schema({
   },
   title: {
     type: String,
-    required: true,
     minlength: 1,
     maxlength: 50
   },
@@ -49,7 +48,7 @@ Board.findByIdAndremoveWithContent = async function(id) {
 function validateBoard(board) {
   const schema = {
     name: Joi.string().min(3).max(50).required(),
-    title: Joi.string().min(1).max(50).required(),
+    title: Joi.string().min(1).max(50),
     description: Joi.string().max(16384),
     email: Joi.string().min(5).max(255).email(),
     lists: Joi.array().items(Joi.objectId())

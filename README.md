@@ -15,7 +15,7 @@ POST*:
 api/boards
 body: {
     name: (Unique required String 3-50 chars),
-    title: (Required board title 1-50 chars),
+    title: (board title 1-50 chars),
     description: (board description 0-16384 chars),
     admin: (email string 5-255 chars),
     lists: (list of valid list id)
@@ -25,7 +25,7 @@ body: {
 POST*:
 api/boards/:boardId
 body: {
-    title: (Required board title 1-50 chars),
+    title: (board title 1-50 chars),
     cards: (list of valid card id)
 }
 
@@ -35,7 +35,7 @@ PUT*:
 api/boards/:boardId
 body: {
     name: (Unique required String 3-50 chars),
-    title: (Required board title 1-50 chars),
+    title: (board title 1-50 chars),
     description: (board description 0-16384 chars),
     admin: (email string 5-255 chars),
     lists: [{}, {}] // {} - valid list body
