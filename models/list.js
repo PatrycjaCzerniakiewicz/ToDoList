@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const _ = require('lodash');
 const mongoose = require('mongoose');
+const Board = require('./board');
 const {Card} = require('../models/card');
 
 const listSchema = new mongoose.Schema({
@@ -27,6 +28,16 @@ listSchema.methods.removeWithContent = async function() {
 }
 
 const List = mongoose.model('List', listSchema);
+
+List.removeFromParentBoard = async function(id) {
+  let boardOld = await Board.Board.find({lists: [id]});
+    if(boardOld){
+      for (const b of boardOld) {
+        b.lists = b.lists.filter(x => x != id);
+        await b.save();
+      }
+    }
+}
 
 List.getElementsFromBody = (body) => _.pick(body, ['title', 'cards']);
 

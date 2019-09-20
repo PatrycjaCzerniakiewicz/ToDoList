@@ -69,8 +69,13 @@ router.put('/:id', [auth, access],  async (req, res) => {
     for (const x of req.body.lists) {
       const {error} = validateList(x);
       const {errorUpdate} = validateListUpdate(x);
+      if(ObjectId.isValid(x)){
+        if(!board.lists.find(y => y == x) && (await List.findById(x))) {
+          await List.removeFromParentBoard(x);
+          board.lists.push(x)
+        };
       // Valid list object with valid ID was given
-      if(ObjectId.isValid(x._id) && !errorUpdate) {
+      } else if(!errorUpdate && ObjectId.isValid(x._id)) {
         let list = await List.findByIdAndUpdate(x._id, x, { new: true });
         if(!board.lists.find(y => y == x._id) && list) board.lists.push(x._id);
       // Valid list object without valid ID was given (creates new list)
