@@ -8,7 +8,7 @@
 </head>
 <body> 
     <a id="loginbtn" style="display: flex; align-items: center; justify-content: center" onclick="javascript:loginWithFacebook()">Login with Facebook</a>
-    <a id="loginbtn" style="display: flex; align-items: center; justify-content: flex-end" onclick="javascript:logout()">Logout</a>
+    <a id="loginbtn" style="display: flex; align-items: center; justify-content: center" onclick="javascript:logout()">Logout</a>
     <script>
         
   window.fbAsyncInit = function() {
@@ -32,9 +32,13 @@
    }(document, 'script', 'facebook-jssdk'));
 
    function logout() {
-    FB.logout(function(response) {
-              // user is now logged out
+    FB.getLoginStatus(function(response) {
+        if (response && response.status === 'connected') {
+            FB.logout(function(response) {
+                document.location.reload();
             });
+        }
+    });
    }
 
     </script>
