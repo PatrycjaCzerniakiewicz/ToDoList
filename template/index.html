@@ -1,48 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Facebook Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Facebook Login</title>
 </head>
-<body> 
-    <a id="loginbtn" style="display: flex; align-items: center; justify-content: center" onclick="javascript:loginWithFacebook()">Login with Facebook</a>
-    <a id="loginbtn" style="display: flex; align-items: center; justify-content: center" onclick="javascript:logout()">Logout</a>
-    <script>
-        
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '406339543405123',
-      cookie     : true,
-      xfbml      : true,
-      version    : 'v4.0'
-    });
-      
-    FB.AppEvents.logPageView();   
-      
-  };
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+<body>
+  <a id="loginbtn" style="display: flex; align-items: center; justify-content: center"
+    onclick="javascript:loginWithFacebook()">Login with Facebook</a>
+  <a id="loginbtn" style="display: flex; align-items: center; justify-content: center"
+    onclick="javascript:logout()">Logout</a>
+  <script>
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '406339543405123',
+        cookie: true,
+        xfbml: true,
+        version: 'v4.0'
+      });
 
-   function logout() {
-    FB.getLoginStatus(function(response) {
+      FB.AppEvents.logPageView();
+
+    };
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        return;
+      }
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    function logout() {
+      FB.getLoginStatus(function (response) {
         if (response && response.status === 'connected') {
-            FB.logout(function(response) {
-                document.location.reload();
-            });
+          FB.logout(function (response) {
+            document.location.reload();
+          });
         }
-    });
-   }
+      });
+    }
+  </script>
 
-    </script>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>

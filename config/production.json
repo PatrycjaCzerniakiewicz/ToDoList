@@ -1,5 +1,4 @@
-
 {
-    "jwtPrivateKey":"",
-    "db":"mongodb+srv://Wojtek:coderscamp_WGF@tdacluster-yvt8y.azure.mongodb.net/test?retryWrites=true&w=majority"
+    "jwtPrivateKey": "",
+    "db": "mongodb+srv://Wojtek:coderscamp_WGF@tdacluster-yvt8y.azure.mongodb.net/test?retryWrites=true&w=majority"
 }

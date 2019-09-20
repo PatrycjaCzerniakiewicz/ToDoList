@@ -1,7 +1,9 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
 const _ = require('lodash');
-const {List} = require('../models/list');
+const {
+  List
+} = require('../models/list');
 
 const cardSchema = new mongoose.Schema({
   title: {
@@ -24,14 +26,16 @@ const cardSchema = new mongoose.Schema({
 
 const Card = mongoose.model('Card', cardSchema);
 
-Card.removeFromParentList = async function(id) {
-  let listOld = await List.find({cards: id});
-    if(listOld){
-      for (const l of listOld) {
-        l.cards = l.cards.filter(x => x != id);
-        await l.save();
-      }
+Card.removeFromParentList = async function (id) {
+  let listOld = await List.find({
+    cards: id
+  });
+  if (listOld) {
+    for (const l of listOld) {
+      l.cards = l.cards.filter(x => x != id);
+      await l.save();
     }
+  }
 }
 
 Card.getElementsFromBody = (body) => _.pick(body, ['title', 'description', 'tags']);
@@ -56,6 +60,6 @@ function validateCardUpdate(card) {
   return Joi.validate(card, schema);
 }
 
-exports.Card = Card; 
+exports.Card = Card;
 exports.validate = validateCard;
 exports.validateUpdate = validateCardUpdate;

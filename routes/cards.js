@@ -1,6 +1,11 @@
 const auth = require('../middleware/auth');
-const {Card, validate} = require('../models/card');
-const {List} = require('../models/list');
+const {
+  Card,
+  validate
+} = require('../models/card');
+const {
+  List
+} = require('../models/list');
 const express = require('express');
 const _ = require('lodash');
 const router = express.Router();
@@ -16,8 +21,10 @@ router.get('/:id', auth, async (req, res) => {
   res.send(card);
 });
 
-router.post('/', auth,  async (req, res) => {
-  const { error } = validate(req.body); 
+router.post('/', auth, async (req, res) => {
+  const {
+    error
+  } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   let card = new Card(Card.getElementsFromBody(req.body));
@@ -28,16 +35,19 @@ router.post('/', auth,  async (req, res) => {
 
 
 
-router.put('/:id', auth,  async (req, res) => {
-  const { error } = validate(req.body); 
+router.put('/:id', auth, async (req, res) => {
+  const {
+    error
+  } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   const card = await Card.findByIdAndUpdate(req.params.id,
-    Card.getElementsFromBody(req.body), 
-     {new: true});
+    Card.getElementsFromBody(req.body), {
+      new: true
+    });
 
   if (!card) return res.status(404).send('The card with the given ID was not found.');
-  
+
   res.send(card);
 });
 

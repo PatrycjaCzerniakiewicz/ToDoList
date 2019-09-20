@@ -5,8 +5,9 @@ const Schema = mongoose.Schema({
     facebookID: String,
     email: String,
     accessToken: String
-},{collection:"FB_users"}
-);
+}, {
+    collection: "FB_users"
+});
 
-const model = mongoose.model('FB_users',Schema);
+const model = mongoose.model('FB_users', Schema);
 module.exports = model;

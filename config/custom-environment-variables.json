@@ -1,4 +1,4 @@
 {
   "jwtPrivateKey": "todoapp_jwtPrivateKey",
-  "db":"todoapp_db"
+  "db": "todoapp_db"
 }

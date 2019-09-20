@@ -2,7 +2,9 @@ const Joi = require('joi');
 const _ = require('lodash');
 const mongoose = require('mongoose');
 const Board = require('./board');
-const {Card} = require('../models/card');
+const {
+  Card
+} = require('../models/card');
 
 const listSchema = new mongoose.Schema({
   title: {
@@ -12,15 +14,15 @@ const listSchema = new mongoose.Schema({
     maxlength: 50
   },
   cards: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Card'
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Card'
   }]
 });
 
-listSchema.methods.removeWithContent = async function() {
+listSchema.methods.removeWithContent = async function () {
   console.log(this);
-  if(this.cards)
-    for(x of this.cards) {
+  if (this.cards)
+    for (x of this.cards) {
       console.log(x);
       await Card.findByIdAndRemove(x);
     }
@@ -29,21 +31,23 @@ listSchema.methods.removeWithContent = async function() {
 
 const List = mongoose.model('List', listSchema);
 
-List.removeFromParentBoard = async function(id) {
-  let boardOld = await Board.Board.find({lists: [id]});
-    if(boardOld){
-      for (const b of boardOld) {
-        b.lists = b.lists.filter(x => x != id);
-        await b.save();
-      }
+List.removeFromParentBoard = async function (id) {
+  let boardOld = await Board.Board.find({
+    lists: [id]
+  });
+  if (boardOld) {
+    for (const b of boardOld) {
+      b.lists = b.lists.filter(x => x != id);
+      await b.save();
     }
+  }
 }
 
 List.getElementsFromBody = (body) => _.pick(body, ['title', 'cards']);
 
-List.findByIdAndRemoveWithContent = async function(id) {
+List.findByIdAndRemoveWithContent = async function (id) {
   const list = await List.findById(id);
-  if(!list) return [];
+  if (!list) return [];
   return await list.removeWithContent();
 }
 
@@ -66,6 +70,6 @@ function validateListUpdate(list) {
   return Joi.validate(list, schema);
 }
 
-exports.List = List; 
+exports.List = List;
 exports.validate = validateList;
 exports.validateUpdate = validateListUpdate;

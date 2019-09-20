@@ -1,6 +1,8 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
-const {List} = require('./list');
+const {
+  List
+} = require('./list');
 
 const boardSchema = new mongoose.Schema({
   name: {
@@ -25,13 +27,13 @@ const boardSchema = new mongoose.Schema({
     maxlength: 255
   },
   lists: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'List'
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'List'
   }]
 });
 
-boardSchema.methods.removeWithContent = async function() {
-  for(x of this.lists) {
+boardSchema.methods.removeWithContent = async function () {
+  for (x of this.lists) {
     await List.findByIdAndRemoveWithContent(x);
   }
   return await this.remove();
@@ -39,9 +41,9 @@ boardSchema.methods.removeWithContent = async function() {
 
 const Board = mongoose.model('Board', boardSchema);
 
-Board.findByIdAndremoveWithContent = async function(id) {
+Board.findByIdAndremoveWithContent = async function (id) {
   const board = await Board.findById(id);
-  if(!board) return [];
+  if (!board) return [];
   return await board.removeWithContent();
 }
 
@@ -70,6 +72,6 @@ function validateBoardUpdate(board) {
   return Joi.validate(board, schema);
 }
 
-exports.Board = Board; 
+exports.Board = Board;
 exports.validate = validateBoard;
 exports.validateUpdate = validateBoardUpdate;
