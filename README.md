@@ -142,8 +142,8 @@ api/auth/me
 POST:
 api/auth
 body: {
-"email": "email",
-"password": "password"
+"email": (Required unique valid email 5-255 chars),
+"password": (Required password String title 5-1024 chars)
 }
 Zwraca jwt
 
@@ -158,9 +158,9 @@ api/users/me
 POST:
 api/users
 body: {
-"email": "email",
-"name": "name",
-"password": "password"
+"email": (Required unique valid email 5-255 chars),
+"name": (Required name String 5-50 chars),
+"password": (Required password String title 5-1024 chars)
 }
 Zwraca id, name, email
 
