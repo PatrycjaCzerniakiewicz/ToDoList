@@ -1,5 +1,6 @@
 const config = require('config');
 const jwt = require('jsonwebtoken');
+const _ = require('lodash');
 const Joi = require('joi');
 const mongoose = require('mongoose');
 

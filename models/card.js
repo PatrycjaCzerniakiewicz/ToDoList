@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
+const _ = require('lodash');
 const {List} = require('../models/list');
 
 const cardSchema = new mongoose.Schema({
