@@ -23,16 +23,7 @@ const userSchema = new mongoose.Schema({
     minlength: 5,
     maxlength: 1024
   },
-<<<<<<< Updated upstream
   isAdmin: Boolean
-=======
-  isAdmin: Boolean,
-  boards: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Board'
-}]
-
->>>>>>> Stashed changes
 });
 
 userSchema.methods.generateAuthToken = function() { 

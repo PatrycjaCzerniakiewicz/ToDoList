@@ -8,6 +8,7 @@
 </head>
 <body> 
     <a id="loginbtn" style="display: flex; align-items: center; justify-content: center" onclick="javascript:loginWithFacebook()">Login with Facebook</a>
+    <a id="loginbtn" style="display: flex; align-items: center; justify-content: flex-end" onclick="javascript:logout()">Logout</a>
     <script>
         
   window.fbAsyncInit = function() {
@@ -29,6 +30,12 @@
      js.src = "https://connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
+
+   function logout() {
+    FB.logout(function(response) {
+              // user is now logged out
+            });
+   }
 
     </script>
 
