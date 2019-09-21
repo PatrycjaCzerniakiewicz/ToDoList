@@ -28,12 +28,15 @@ function register(e)
     {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data),
-        mode: 'no-cors',
         method: 'POST'
     };
-    console.log(params.body);
     fetch(Url, params)
-        .then(res => res.json())
-        .then(response => console.log(JSON.stringify(response)))
-        .catch(error => console.log(error));
+        .then(res => 
+        {
+            if(res.ok)
+                alert("User created succesfully!")
+            else
+                alert("Something went wrong :(");
+        })
+        .catch(error => alert("Something went wrong :("));
 }
