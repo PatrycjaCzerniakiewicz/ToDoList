@@ -30,6 +30,7 @@ router.get('/', auth, async (req, res) => {
 
 router.get('/:id', [auth, access], async (req, res) => {
   const board = await Board.findById(req.params.id).populate('lists');
+  if (!board) return res.status(404).send('The board with the given ID was not found.');
   res.send(board);
 });
 
@@ -133,7 +134,7 @@ router.delete('/:id/:listId', [auth, access], async (req, res) => {
 
   board.lists = board.lists.filter(x => x != req.params.listId);
   board = board.save();
-  let list = await List.findByIdAndremoveWithContent(req.params.listId);
+  let list = await List.findByIdAndRemoveWithContent(req.params.listId);
 
   if (!list) return res.status(404).send('The list with the given ID was not found.');
 

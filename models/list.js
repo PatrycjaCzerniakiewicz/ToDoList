@@ -20,10 +20,8 @@ const listSchema = new mongoose.Schema({
 });
 
 listSchema.methods.removeWithContent = async function () {
-  console.log(this);
   if (this.cards)
     for (x of this.cards) {
-      console.log(x);
       await Card.findByIdAndRemove(x);
     }
   return await this.remove();

@@ -79,7 +79,7 @@ router.put('/:id', auth, async (req, res) => {
           list.cards.push(x)
         };
         // Valid card object with valid ID was given
-      } else if (ObjectId.isValid(x._id) && !errorUpdate) {
+      } else if (x._id && ObjectId.isValid(x._id) && !errorUpdate) {
         let card = await Card.findByIdAndUpdate(x._id, x, {
           new: true
         });

@@ -18,7 +18,6 @@ const cardSchema = new mongoose.Schema({
   },
   tags: [{
     type: String,
-    unique: true,
     minlength: 1,
     maxlength: 50
   }]
