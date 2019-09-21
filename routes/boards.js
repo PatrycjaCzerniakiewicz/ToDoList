@@ -132,8 +132,12 @@ router.delete('/:id/:listId', [auth, access], async (req, res) => {
   let board = await Board.findById(req.params.id);
   if (!board) return res.status(404).send('The board with the given ID was not found.');
 
-  board.lists = board.lists.filter(x => x != req.params.listId);
-  board = board.save();
+  console.log(board);
+
+  if (board.lists) {
+    board.lists = board.lists.filter(x => x != req.params.listId);
+    board = board.save();
+  }
   let list = await List.findByIdAndRemoveWithContent(req.params.listId);
 
   if (!list) return res.status(404).send('The list with the given ID was not found.');

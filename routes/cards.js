@@ -18,6 +18,7 @@ router.get('/', auth, async (req, res) => {
 
 router.get('/:id', auth, async (req, res) => {
   const card = await Card.findById(req.card._id);
+  if (!card) return res.status(404).send("Card not found");
   res.send(card);
 });
 

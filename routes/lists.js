@@ -22,6 +22,7 @@ router.get('/', auth, async (req, res) => {
 
 router.get('/:id', auth, async (req, res) => {
   const list = await List.findById(req.params.id).populate('cards');
+  if (!list) return res.status(404).send("List not found");
   res.send(list);
 });
 
