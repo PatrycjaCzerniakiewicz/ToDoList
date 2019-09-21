@@ -31,8 +31,9 @@ const List = mongoose.model('List', listSchema);
 
 List.removeFromParentBoard = async function (id) {
   let boardOld = await Board.Board.find({
-    lists: [id]
+    lists: id
   });
+  console.log(boardOld);
   if (boardOld) {
     for (const b of boardOld) {
       b.lists = b.lists.filter(x => x != id);
@@ -44,6 +45,7 @@ List.removeFromParentBoard = async function (id) {
 List.getElementsFromBody = (body) => _.pick(body, ['title', 'cards']);
 
 List.findByIdAndRemoveWithContent = async function (id) {
+  List.removeFromParentBoard(id);
   const list = await List.findById(id);
   if (!list) return [];
   return await list.removeWithContent();
