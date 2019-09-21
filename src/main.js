@@ -279,7 +279,7 @@ function changeTaskText(event)
 
         const data =
         {
-            description: event.target.innerHTML;
+            description: event.target.innerHTML
         }
         const params = 
         {
