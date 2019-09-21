@@ -1,15 +1,15 @@
 const access = require('../middleware/access');
 const auth = require('../middleware/auth');
 const {
+  List,
+  validate: validateList,
+  validateUpdate: validateListUpdate
+} = require('../models/list');
+const {
   Board,
   validate,
   validateUpdate
 } = require('../models/board');
-const {
-  List,
-  validateList = validate,
-  validateListUpdate = validateUpdate
-} = require('../models/list');
 const express = require('express');
 const _ = require('lodash');
 const router = express.Router();

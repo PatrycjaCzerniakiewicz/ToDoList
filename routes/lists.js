@@ -6,8 +6,8 @@ const {
 } = require('../models/list');
 const {
   Card,
-  validateCard = validate,
-  validateCardUpdate = validateUpdate
+  validate: validateCard,
+  validateUpdate: validateCardUpdate
 } = require('../models/card');
 const express = require('express');
 const _ = require('lodash');
