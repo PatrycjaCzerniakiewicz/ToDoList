@@ -1,6 +1,6 @@
 # ToDoApp readme file
 
-## It allows you to keep all your "things ToDo" in one place in web. You can login to our platform from everywhere using your e-mail adress and track your progress of provided stuff. Adding a new plans is very easy and intuitive. It's enough to click a button +AddTask and to provide the title, date and short description of your task. Thanks to ToDoApp you will never forget about your most important plans.
+## It allows you to keep all your "things ToDo" in one place in web. You can login to the platform from everywhere using your e-mail adress and track your progress of provided stuff. Adding a new plans is very easy and intuitive. It's enough to click a button +AddTask and to provide the title, date and short description of your task. Thanks to ToDoApp you will never forget about your most important plans.
 
 # NPM packages and versions
 bcrypt: 3.0.6,
@@ -29,7 +29,6 @@ mongoose: 5.7.0
 ![close button](https://raw.githubusercontent.com/PatrycjaCzerniakiewicz/ToDoList/master/screenshots/screenBoardDelete.png)
 
 
-![log in](https://raw.githubusercontent.com/PatrycjaCzerniakiewicz/ToDoList/master/screenshots/screenLog.png)
 
 ![register](https://raw.githubusercontent.com/PatrycjaCzerniakiewicz/ToDoList/master/screenshots/screenRegister.png)
 
@@ -37,4 +36,4 @@ mongoose: 5.7.0
 ![delete button](https://raw.githubusercontent.com/PatrycjaCzerniakiewicz/ToDoList/master/screenshots/screenTaskDelete.png)
 
 # Hosting
-For our application we used Heroku connected with MongoDB.
+For the application we used Heroku connected with MongoDB.
