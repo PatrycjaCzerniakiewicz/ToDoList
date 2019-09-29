@@ -16,15 +16,19 @@ class Board
         {
             var sibling = document.getElementById("newBoardButton");
             var newList = document.createElement("div");
+            newList.id = item._id;
             newList.className += "card list-group-flush m-3";
-            newList.innerHTML = `<div class="card-header d-flex justify-content-between align-items-center"><h3 class="card-title"><input type="text" onkeypress="changeName(event)" class="form-control-plaintext" value=${item.title}></h3><button type="button" class="btn btn-danger deleteBlock" onclick="deleteList(event)">X</button></div><ul class="list-group"><button type="button" class="list-group-item list-group-item-success list-group-item-action addTask" onclick="addNewCard(event)">+ Add task</button></ul>`;
+            newList.innerHTML = `<div class="card-header d-flex justify-content-between align-items-center"><h3 class="card-title"><input type="text" onkeypress="changeName(event)" class="form-control-plaintext" value=${item.title}></h3><button type="button" class="btn btn-danger deleteBlock" onclick="deleteList(event)">X</button></div><ul ondrop="drop(event)" ondragover="allowDrop(event)" class="list-group"><button type="button" class="list-group-item list-group-item-success list-group-item-action addTask" onclick="addNewCard(event)">+ Add task</button></ul>`;
             sibling.parentNode.insertBefore(newList, sibling);
 
             item.cards.forEach(x =>
             {
                 var newCard = document.createElement("li");
+                newCard.addEventListener("dragstart", function(event){drag(event);});
+                newCard.setAttribute("draggable", true);
+                newCard.id = x._id;
                 newCard.className += "list-group-item d-flex justify-content-between align-items-center";
-                newCard.innerHTML = `<textarea onkeypress="changeTaskText(event)" onmouseenter="autoGrow(this)" onmouseleave="shrinkToDefault(this)"  class="form-control-plaintext">${x.description || "Example task"}</textarea>
+                newCard.innerHTML = `<textarea onkeypress="changeTaskText(event)" onmouseenter="autoGrow(this)" onmouseleave="shrinkToDefault(this)" class="form-control-plaintext">${x.description || "Example task"}</textarea>
                     <button type="button" class="btn btn-outline-danger btn-sm ml-2 deleteItem" onclick="deleteCard(event)">X</button>`;
                 newList.children[1].insertBefore(newCard, newList.children[1].lastChild);
             });
@@ -34,7 +38,7 @@ class Board
 
 var boards = [];
 loadBoard();
-//getUsername();
+getUsername();
 
 function loadBoard()
 {
@@ -279,7 +283,8 @@ function changeTaskText(event)
 
         const data =
         {
-            description: event.target.innerHTML
+            description: event.target.value,
+            title: "title"
         }
         const params = 
         {
@@ -378,7 +383,7 @@ function changeName(event)
 
 function getUsername()
 {
-    const Url = "https://fathomless-chamber-33667.herokuapp.com/auth/me";
+    const Url = "https://fathomless-chamber-33667.herokuapp.com/api/auth/me";
 
     const params = 
     {
@@ -415,4 +420,50 @@ function logout()
     localStorage.removeItem('email');
     localStorage.removeItem('jwt');
     localStorage.removeItem('user');
+}
+
+function allowDrop(ev) 
+{
+    ev.preventDefault();
+}
+  
+function drag(ev) 
+{
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+  
+function drop(ev) 
+{
+    ev.preventDefault();
+    var event = ev.target;
+    var data = ev.dataTransfer.getData("text");
+    while(event.className != "list-group")
+        event = event.parentNode;
+    event.insertBefore(document.getElementById(data), event.lastChild);
+    const Url = `https://fathomless-chamber-33667.herokuapp.com/api/lists/${event.parentNode.id}/${data}`;
+
+    const params = 
+    {
+        headers: 
+        {
+            'Content-Type': 'application/json',
+            "x-auth-token": localStorage.getItem('jwt')   
+        },
+        method: 'PUT'
+    };
+    fetch(Url, params)
+        .then(res => 
+        {   
+            if(!res.ok)
+            {
+                alert("Something went wrong :(");
+                return;
+            }
+            else
+            {
+                boards = [];
+                loadBoard();
+            }
+        })
+        .catch(error => console.log(error));
 }
