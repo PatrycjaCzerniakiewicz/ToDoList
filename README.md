@@ -1,6 +1,7 @@
 # ToDoApp
 
 ## It allows you to keep all your "things ToDo" in one place in web. You can login to the platform from everywhere using your e-mail adress and track your progress of provided stuff. Adding a new plans is very easy and intuitive. It's enough to click a button +AddTask and to provide the title, date and short description of your task. Thanks to ToDoApp you will never forget about your most important plans.
+Link to the application: https://patrycjaczerniakiewicz.github.io/ToDoList/
 
 # NPM packages and versions
 bcrypt: 3.0.6,
