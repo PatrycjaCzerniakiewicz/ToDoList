@@ -416,7 +416,7 @@ function getUsername()
 
 function logout()
 {
-    document.location.href = "login.html";
+    document.location.href = "index.html";
     localStorage.removeItem('email');
     localStorage.removeItem('jwt');
     localStorage.removeItem('user');
