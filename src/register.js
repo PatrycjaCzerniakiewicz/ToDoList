@@ -34,7 +34,10 @@ function register(e)
         .then(res => 
         {
             if(res.ok)
-                alert("User created succesfully!")
+            {
+                alert("User created succesfully!");
+                document.location.href = "index.html";
+            }          
             else
                 alert("Something went wrong :(");
         })
